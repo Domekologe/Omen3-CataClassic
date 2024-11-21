@@ -1,5 +1,5 @@
-## Interface: 90002
-## Version: 3.2.4
+## Interface: 40401
+## Version: 4.0.1
 ## Title: Omen3
 ## Notes: A lightweight, flexible, multi-target threat meter.
 ## Notes-ruRU: Лёгкий, гибкий, измеритель угрозы.
