@@ -984,42 +984,48 @@ end
 -- Omen warnings
 
 function Omen:Flash()
-	if not self.FlashFrame then
-		local flasher = CreateFrame("Frame", "OmenFlashFrame")
-		flasher:SetToplevel(true)
-		flasher:SetFrameStrata("FULLSCREEN_DIALOG")
-		flasher:SetAllPoints(UIParent)
-		flasher:EnableMouse(false)
-		flasher:Hide()
-		flasher.texture = flasher:CreateTexture(nil, "BACKGROUND")
-		flasher.texture:SetTexture("Interface\\FullScreenTextures\\LowHealth")
-		flasher.texture:SetAllPoints(UIParent)
-		flasher.texture:SetBlendMode("ADD")
-		flasher:SetScript("OnShow", function(self)
-			self.elapsed = 0
-			self:SetAlpha(0)
-		end)
-		flasher:SetScript("OnUpdate", function(self, elapsed)
-			elapsed = self.elapsed + elapsed
-			if elapsed < 2.6 then
-				local alpha = elapsed % 1.3
-				if alpha < 0.15 then
-					self:SetAlpha(alpha / 0.15)
-				elseif alpha < 0.9 then
-					self:SetAlpha(1 - (alpha - 0.15) / 0.6)
-				else
-					self:SetAlpha(0)
-				end
-			else
-				self:Hide()
-			end
-			self.elapsed = elapsed
-		end)
-		self.FlashFrame = flasher
-	end
+    if not self.FlashFrame then
+        local flasher = CreateFrame("Frame", "OmenFlashFrame", UIParent)
+        flasher:SetToplevel(true)
+        flasher:SetFrameStrata("FULLSCREEN_DIALOG")
+        flasher:SetAllPoints(UIParent)
+        flasher:EnableMouse(false)
+        flasher:Hide()
 
-	self.FlashFrame:Show()
+        flasher.texture = flasher:CreateTexture(nil, "BACKGROUND")
+        flasher.texture:SetTexture("Interface\\FullScreenTextures\\LowHealth")
+        flasher.texture:SetAllPoints(flasher)
+        flasher.texture:SetBlendMode("ADD")
+
+        flasher.elapsed = 0
+
+        flasher:SetScript("OnShow", function(self)
+            self.elapsed = 0
+            self:SetAlpha(0)
+        end)
+
+        flasher:SetScript("OnUpdate", function(self, delta)
+            self.elapsed = self.elapsed + delta
+            if self.elapsed < 2.6 then
+                local alpha = self.elapsed % 1.3
+                if alpha < 0.15 then
+                    self:SetAlpha(alpha / 0.15)
+                elseif alpha < 0.9 then
+                    self:SetAlpha(1 - (alpha - 0.15) / 0.75)
+                else
+                    self:SetAlpha(0)
+                end
+            else
+                self:Hide()
+            end
+        end)
+
+        self.FlashFrame = flasher
+    end
+
+    self.FlashFrame:Show()
 end
+
 
 -- This function is adapted from Omen2 to be self-contained,
 -- which was initially taken from BigWigs

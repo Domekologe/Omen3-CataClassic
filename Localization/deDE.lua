@@ -131,10 +131,8 @@ http://forums.wowace.com/showthread.php?t=14249
 |cffffd200Wer hat Omen3 geschrieben?|r
 
 Xinhuan (Blackrock/Barthilas US Alliance).
+Cata Classic Update => Domekologe (Shîrîana - Everlook EU)
 
-|cffffd200Sind Spenden via Paypal möglich?|r
-
-Ja, schicken Sie sie an xinhuan AT gmail DOT com.
 ]=]
 L["Grow bars upwards"] = "Balken nach oben aufbauen"
 L["Heading background color"] = "Hintergrundfarbe der Überschriften"
