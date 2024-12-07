@@ -2078,7 +2078,9 @@ function Omen:UpdateBarsReal()
 		end
 		local t = db.Warnings
 		if lastWarn.mobGUID == mobGUID and myThreatPercent >= t.Threshold and t.Threshold > lastWarn.threatpercent then
-			if not WoWClassic and (not t.DisableWhileTanking or not (GetSpecialization() and select(5, GetSpecializationInfo(GetSpecialization())) == "TANK")) then
+			_,_,TUnitId=UnitClass("player")
+			TSpecInfo = GetSpecializationInfoForClassID(TUnitId,GetPrimaryTalentTree())
+			if not WoWClassic and (not t.DisableWhileTanking or not (GetPrimaryTalentTree() and select(5,TSpecInfo ) == "TANK")) then
 				self:Warn(t.Sound, t.Flash, t.Shake, t.Message and L["Passed %s%% of %s's threat!"]:format(t.Threshold, guidNameLookup[lastWarn.tankGUID]))
 			end
 		end
